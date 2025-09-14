@@ -1,0 +1,55 @@
+services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: flashpage-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      CLOUDFLARE_API_TOKEN: ${CLOUDFLARE_API_TOKEN}
+    networks:
+      - flashpage-network
+    depends_on:
+      - app
+
+  mongodb:
+    image: mongo:7
+    container_name: flashpage-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+      MONGO_INITDB_DATABASE: flashpage
+    volumes:
+      - mongodb_data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - flashpage-network
+
+  app:
+    build: .
+    container_name: flashpage-app
+    restart: unless-stopped
+    environment:
+      MONGODB_URI: mongodb://admin:${MONGO_PASSWORD}@mongodb:27017/flashpage?authSource=admin
+      GIPHY_API_KEY: ${GIPHY_API_KEY}
+      SITE_URL: https://flashpage.io
+      NODE_ENV: production
+    depends_on:
+      - mongodb
+    networks:
+      - flashpage-network
+
+volumes:
+  mongodb_data:
+  caddy_data:
+  caddy_config:
+
+networks:
+  flashpage-network:
+    driver: bridge

@@ -1,0 +1,38 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: flashpage-mongodb
+    restart: unless-stopped
+    ports: 
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD:-changeme}
+      MONGO_INITDB_DATABASE: flashpage
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - flashpage-network
+
+  app:
+    build: .
+    container_name: flashpage-app
+    restart: unless-stopped
+    environment:
+      MONGODB_URI: ${MONGODB_URI}
+      GIPHY_API_KEY: ${GIPHY_API_KEY}
+      SITE_URL: ${SITE_URL:-http://localhost:3000}
+      NODE_ENV: production
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    networks:
+      - flashpage-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  flashpage-network:
+    driver: bridge

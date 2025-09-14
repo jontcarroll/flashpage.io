@@ -1,0 +1,32 @@
+# Main domain and all subdomains
+*.flashpage.io, flashpage.io {
+    # Request wildcard certificate for all subdomains
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+
+    # Reverse proxy to Nuxt app
+    reverse_proxy app:3000 {
+        # Pass the original host header to preserve subdomain info
+        header_up Host {host}
+        header_up X-Real-IP {remote}
+        header_up X-Forwarded-For {remote}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
+    # Enable compression
+    encode gzip
+
+    # Security headers
+    header {
+        X-Content-Type-Options nosniff
+        X-Frame-Options DENY
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy strict-origin-when-cross-origin
+    }
+}
+
+# Redirect www to non-www
+www.flashpage.io {
+    redir https://flashpage.io{uri} permanent
+}
