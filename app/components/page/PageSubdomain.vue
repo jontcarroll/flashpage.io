@@ -13,32 +13,11 @@ import { computed } from 'vue'
 import { getThemeById } from '~/utils/themes'
 import type { ISubdomain } from '../../../types'
 
-// Get subdomain with consistent logic
-let subdomain: string | null = null
-
-// Server-side: get from context
-if (process.server) {
-  const event = useRequestEvent()
-  subdomain = event?.context.subdomain || null
-}
-
-// Client-side: parse from hostname
-if (process.client) {
-  const host = window.location.hostname
-  const parts = host.split('.')
-  
-  // Check for .localhost domains
-  if (host.endsWith('.localhost') && parts.length === 2) {
-    subdomain = parts[0] || null
-  }
-  // Check for production domains (subdomain.domain.com)
-  else if (parts.length >= 3 && parts[0] !== 'www') {
-    subdomain = parts[0] || null
-  }
-}
+// Get subdomain using the composable
+const { subdomain } = useSubdomain()
 
 // Fetch subdomain data
-const { data, pending, error } = await useFetch<ISubdomain>(`/api/subdomains/${subdomain}`)
+const { data, pending, error } = await useFetch<ISubdomain>(`/api/subdomains/${subdomain.value}`)
 
 // Compute theme colors for the main container
 const themeColors = computed(() => {

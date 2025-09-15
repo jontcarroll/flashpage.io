@@ -238,6 +238,9 @@ export const useApi = () => {
 - Ensure responsive design principles
 - Consider accessibility in component design
 
+## Development Workflow Preferences
+- **IMPORTANT**: Always stop any Node processes (npm run dev, etc.) when finished working. The user prefers to run these manually.
+
 ## Commands
 
 Build the application:
