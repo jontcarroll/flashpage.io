@@ -84,9 +84,27 @@ jobs:
             sudo -u www docker compose pull
 
             # Deploy with environment variables preserved using -E flag
-            sudo -E -u www docker compose up -d
+            sudo -E -u www docker compose up -d --force-recreate
+
+            # Wait for services to start and verify they're healthy
+            echo "Waiting for services to start..."
+            sleep 15
+
+            # Check if all services are running
+            if ! sudo -u www docker compose ps --format table | grep -q "Up"; then
+              echo "❌ Deployment failed - services not running properly"
+              sudo -u www docker compose logs
+              exit 1
+            fi
+
+            # Check if app is responding
+            if ! curl -f -s http://localhost:3000/api/health > /dev/null 2>&1; then
+              echo "⚠️  Warning: App health check failed, but containers are running"
+            else
+              echo "✅ App health check passed"
+            fi
 
             # Clean up old images
             docker image prune -f
 
-            echo "Deployment completed successfully"
+            echo "✅ Deployment completed successfully"

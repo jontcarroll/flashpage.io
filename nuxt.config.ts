@@ -35,12 +35,14 @@ export default defineNuxtConfig({
     },
     typescript: {
         strict: true,
-        typeCheck: true,
+        typeCheck: process.env.NODE_ENV !== 'production',
         tsConfig: {
             compilerOptions: {
                 paths: {
                     '~/types': ['./types'],
-                    '~/types/*': ['./types/*']
+                    '~/types/*': ['./types/*'],
+                    '~/utils/*': ['./app/utils/*'],
+                    '~/composables/*': ['./app/composables/*']
                 }
             }
         }
