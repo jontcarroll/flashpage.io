@@ -26,7 +26,6 @@ A fun and simple website that allows users to instantly create their own subdoma
 - Node.js 20+
 - MongoDB (local or cloud instance)
 - Giphy API key (free from [Giphy Developers](https://developers.giphy.com/))
-- For production: Cloudflare account with API token
 
 ## Development Setup
 

@@ -27,12 +27,12 @@ services:
       MONGO_INITDB_DATABASE: flashpage
     volumes:
       - mongodb_data:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+#      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - flashpage-network
 
   app:
-    build: .
+    image: ghcr.io/jontcarroll/flashpage.io:latest
     container_name: flashpage-app
     restart: unless-stopped
     environment:
