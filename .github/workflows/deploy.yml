@@ -54,6 +54,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           source: "infra/production/*"
           target: "/opt/flashpage/"
+          strip_components: 2
           overwrite: true
 
       - name: Set file permissions and deploy
