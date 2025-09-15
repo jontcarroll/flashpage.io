@@ -69,6 +69,9 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           envs: MONGO_PASSWORD,GIPHY_API_KEY,CLOUDFLARE_API_TOKEN
           script: |
+            # Exit immediately if any command fails
+            set -e
+
             # Navigate to application directory
             cd /opt/flashpage
 
@@ -84,8 +87,8 @@ jobs:
             # Pull latest images
             sudo -u www docker compose pull
 
-            # Deploy with environment variables preserved using -E flag
-            sudo -E -u www docker compose up -d --force-recreate
+            # Deploy with environment variables (inherited from exported vars)
+            sudo -u www docker compose up -d --force-recreate
 
             # Wait for services to start and verify they're healthy
             echo "Waiting for services to start..."
