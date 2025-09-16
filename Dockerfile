@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 # Build stage with BuildKit cache mounts
-FROM node:20-alpine AS builder
+FROM node:24-alpine AS builder
 
 # Install dependencies needed for some npm packages
 RUN apk add --no-cache python3 make g++
@@ -22,7 +22,7 @@ COPY . .
 RUN npm run build
 
 # Production stage - smaller final image
-FROM node:20-alpine AS production
+FROM node:24-alpine AS production
 
 # Add non-root user for security
 RUN addgroup -g 1001 -S nodejs && \
