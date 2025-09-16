@@ -91,6 +91,7 @@ jobs:
               echo "MONGO_PASSWORD=$ENCODED_MONGO_PASSWORD"
               echo "GIPHY_API_KEY=$GIPHY_API_KEY"
               echo "CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN"
+              echo "SITE_URL=https://flashpage.io"
             } | sudo tee .env > /dev/null
             sudo chown www:www .env
             sudo chmod 600 .env

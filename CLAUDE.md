@@ -16,6 +16,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - [📚 DOCUMENTATION MANAGEMENT](#-documentation-management)
 - [🔍 TROUBLESHOOTING PHILOSOPHY](#-troubleshooting-philosophy)
 - [🚀 DEVELOPMENT WORKFLOW](#-development-workflow)
+- [🤝 ENCOURAGING COLLABORATIVE PROBLEM-SOLVING](#-encouraging-collaborative-problem-solving)
 - [🤖 NOTES FOR CLAUDE](#-notes-for-claude)
 - [⚙️ COMMANDS & UTILITIES](#️-commands--utilities)
 
@@ -328,6 +329,36 @@ Remember: A simple solution to the root cause is almost always better than a com
 - Test API endpoints with proper mocking
 - Use Vue Test Utils for component testing
 - Implement E2E tests for critical user flows
+
+---
+
+# 🤝 ENCOURAGING COLLABORATIVE PROBLEM-SOLVING
+
+When I want Claude Code to suggest improvements or alternative approaches rather than just following my exact instructions:
+
+## Language Patterns to Use:
+- "Help me build X, but let me know if you see a better approach"
+- "I'm thinking of doing Y, but I'm open to suggestions"
+- "What's the best way to accomplish Z?"
+- "Feel free to deviate from my exact specifications if you have a better idea"
+- "I want the best solution, not necessarily the one I described"
+
+## Request Analysis First:
+- "Before implementing this, what are the potential issues or improvements you'd suggest?"
+- "Review my approach and recommend any changes"
+- "What would you do differently here?"
+
+## Frame Goals, Not Implementation:
+- Focus on what I want to accomplish rather than how to do it
+- Ask "How can I achieve X?" instead of "Implement X using Y method"
+
+## Follow-up Questions:
+- "Is there a more efficient way to handle this?"
+- "What are the trade-offs of different approaches?"
+- "How would you improve this design?"
+
+## Key Principle:
+Communicate that I value Claude's technical judgment and want collaborative partnership, not just instruction-following.
 
 ---
 
