@@ -1,12 +1,12 @@
 # FlashPage.io - Instant Subdomain Creator
 
-A fun and simple website that allows users to instantly create their own subdomain with custom content and a GIF from Giphy.
+A fun and simple website that allows users to instantly create their own subdomain with custom content and a GIF from Klipy.
 
 ## Features
 
 - 🚀 Instant subdomain creation (e.g., `my-page.flashpage.io`)
 - 📝 Custom page content with title and message
-- 🎬 Giphy integration for adding fun GIFs
+- 🎬 Klipy integration for adding fun GIFs
 - 📊 View counter for each page
 - 🎨 Beautiful, responsive design with Tailwind CSS
 - ⚡ Built with Nuxt 4 and Vue 3
@@ -19,13 +19,13 @@ A fun and simple website that allows users to instantly create their own subdoma
 - **Backend**: Nuxt Server Routes, Nitro
 - **Database**: MongoDB with Mongoose
 - **Deployment**: Docker, Caddy, Cloudflare DNS
-- **API**: Giphy API for GIF search
+- **API**: Klipy API for GIF search
 
 ## Prerequisites
 
 - Node.js 20+
 - MongoDB (local or cloud instance)
-- Giphy API key (free from [Giphy Developers](https://developers.giphy.com/))
+- Klipy API key (free from [Klipy Partners](https://partner.klipy.com/api-keys))
 
 ## Development Setup
 
@@ -48,7 +48,7 @@ cp .env.example .env
 4. Configure your environment variables:
 ```env
 MONGODB_URI=mongodb://localhost:27017/flashpage
-GIPHY_API_KEY=your_giphy_api_key_here
+KLIPY_API_KEY=your_klipy_api_key_here
 SITE_URL=http://localhost:3000
 ```
 
@@ -66,7 +66,7 @@ Visit `http://localhost:3000` to see the application.
 1. Set up your environment variables in `.env`:
 ```env
 MONGO_PASSWORD=secure_password_here
-GIPHY_API_KEY=your_giphy_api_key
+KLIPY_API_KEY=your_klipy_api_key
 SITE_URL=https://flashpage.io
 CLOUDFLARE_API_TOKEN=your_cloudflare_api_token
 ```
@@ -96,7 +96,7 @@ Caddy automatically handles:
    - Subdomain name (e.g., "my-awesome-page")
    - Page title
    - Content message
-   - Selected GIF from Giphy search
+   - Selected GIF from Klipy search
 
 2. **Subdomain Creation**: The app instantly creates the subdomain and stores data in MongoDB
 
@@ -112,7 +112,7 @@ Caddy automatically handles:
 - `POST /api/subdomains` - Create a new subdomain
 - `GET /api/subdomains/check/:slug` - Check subdomain availability
 - `GET /api/subdomains/:slug` - Get subdomain data
-- `GET /api/giphy/search?q=keyword` - Search GIFs via Giphy
+- `GET /api/klipy/search?q=keyword` - Search GIFs via Klipy
 
 ## Project Structure
 

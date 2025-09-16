@@ -20,7 +20,7 @@ services:
     restart: unless-stopped
     environment:
       MONGODB_URI: ${MONGODB_URI}
-      GIPHY_API_KEY: ${GIPHY_API_KEY}
+      KLIPY_API_KEY: ${KLIPY_API_KEY}
       SITE_URL: ${SITE_URL:-http://localhost:3000}
       NODE_ENV: production
     ports:
