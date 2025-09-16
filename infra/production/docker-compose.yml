@@ -36,9 +36,9 @@ services:
     container_name: flashpage-app
     restart: unless-stopped
     environment:
-      MONGODB_URI: mongodb://admin:${MONGO_PASSWORD}@mongodb:27017/flashpage?authSource=admin
-      KLIPY_API_KEY: ${KLIPY_API_KEY}
-      SITE_URL: https://flashpage.io
+      NUXT_MONGO_URI: mongodb://admin:${MONGO_PASSWORD}@mongodb:27017/flashpage?authSource=admin
+      NUXT_KLIPY_API_KEY: ${KLIPY_API_KEY}
+      NUXT_PUBLIC_SITE_URL: https://flashpage.io
       NODE_ENV: production
     depends_on:
       - mongodb

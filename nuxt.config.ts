@@ -25,10 +25,10 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: {
-    mongoUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/flashpage',
-    klipyApiKey: process.env.KLIPY_API_KEY || '',
+    mongoUri: process.env.NUXT_MONGO_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/flashpage',
+    klipyApiKey: process.env.NUXT_KLIPY_API_KEY || process.env.KLIPY_API_KEY || '',
     public: {
-      siteUrl: process.env.SITE_URL || 'http://localhost:3000'
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000'
     }
   },
   typescript: {
