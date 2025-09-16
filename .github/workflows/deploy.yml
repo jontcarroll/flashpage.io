@@ -53,7 +53,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           source: "infra/production/*"
-          target: "/opt/flashpage/"
+          target: "/tmp/flashpage-deploy/"
           strip_components: 2
           overwrite: true
 
@@ -72,12 +72,17 @@ jobs:
             # Exit immediately if any command fails
             set -e
 
+            # Move files from staging to production directory
+            sudo mkdir -p /opt/flashpage
+            sudo cp /tmp/flashpage-deploy/* /opt/flashpage/
+            sudo chown www:www /opt/flashpage/docker-compose.yml /opt/flashpage/Caddyfile
+            sudo chmod 644 /opt/flashpage/docker-compose.yml /opt/flashpage/Caddyfile
+
+            # Clean up staging directory
+            rm -rf /tmp/flashpage-deploy
+
             # Navigate to application directory
             cd /opt/flashpage
-
-            # Set proper ownership and permissions for files
-            sudo chown www:www docker-compose.yml Caddyfile
-            sudo chmod 644 docker-compose.yml Caddyfile
 
             # Export environment variables for docker-compose
             export MONGO_PASSWORD="$MONGO_PASSWORD"

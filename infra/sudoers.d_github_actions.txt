@@ -1,4 +1,5 @@
-# Allow github-actions user to run docker compose commands as www user
+
+# Allow github-actions user to run docker compose commands as www user  
 github-actions ALL=(www) SETENV: NOPASSWD: /usr/bin/docker compose pull
 github-actions ALL=(www) SETENV: NOPASSWD: /usr/bin/docker compose up -d*
 github-actions ALL=(www) SETENV: NOPASSWD: /usr/bin/docker compose ps*
@@ -6,8 +7,8 @@ github-actions ALL=(www) SETENV: NOPASSWD: /usr/bin/docker compose logs*
 github-actions ALL=(www) NOPASSWD: /usr/bin/docker compose down
 github-actions ALL=(www) NOPASSWD: /usr/bin/docker compose restart
 
-# Allow github-actions user to set file ownership and permissions
-github-actions ALL=NOPASSWD: /usr/bin/chown www\:www /opt/flashpage/docker-compose.yml
-github-actions ALL=NOPASSWD: /usr/bin/chown www\:www /opt/flashpage/Caddyfile
-github-actions ALL=NOPASSWD: /usr/bin/chmod 644 /opt/flashpage/docker-compose.yml
-github-actions ALL=NOPASSWD: /usr/bin/chmod 644 /opt/flashpage/Caddyfile
+# Allow file operations for deployment staging
+github-actions ALL=NOPASSWD: /usr/bin/mkdir
+github-actions ALL=NOPASSWD: /usr/bin/cp
+github-actions ALL=NOPASSWD: /usr/bin/chown
+github-actions ALL=NOPASSWD: /usr/bin/chmod
