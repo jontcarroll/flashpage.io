@@ -1,10 +1,81 @@
+# Dependencies
 node_modules
+.npm
+.pnpm-store
+.yarn
+
+# Build outputs
 .nuxt
 .output
-.git
-.idea
-.DS_Store
-*.log
-.env
-.env.local
 dist
+.cache
+
+# Version control
+.git
+.gitignore
+.github
+
+# IDE and editor files
+.idea
+.vscode
+*.sublime-*
+*.code-workspace
+.history
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage
+.nyc_output
+test-results
+
+# Documentation
+README.md
+CLAUDE.md
+docs
+*.md
+
+# Temporary files
+tmp
+temp
+.tmp
+
+# Docker files (avoid recursive builds)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# CI/CD
+.gitlab-ci.yml
+.travis.yml
+.circleci
+azure-pipelines.yml
+
+# Development files
+.eslintrc*
+.prettierrc*
+.editorconfig
+tsconfig.json
+jsconfig.json
+renovate.json
+
+# Package manager files (except package.json and lock files which are needed)
+.npmrc
+.yarnrc
+.pnpmfile.cjs

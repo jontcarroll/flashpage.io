@@ -1,0 +1,56 @@
+# Dependabot configuration
+# Keeps dependencies up to date automatically
+# This helps with security updates and improves Docker cache efficiency
+
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+    open-pull-requests-limit: 5
+    groups:
+      # Group all non-major npm updates together
+      npm-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+    # Automatically merge minor and patch updates
+    assignees:
+      - "jontcarroll"
+    commit-message:
+      prefix: "deps"
+      include: "scope"
+
+  # Keep GitHub Actions up to date
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+    open-pull-requests-limit: 5
+    assignees:
+      - "jontcarroll"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+
+  # Keep Docker base images up to date
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+    open-pull-requests-limit: 5
+    assignees:
+      - "jontcarroll"
+    commit-message:
+      prefix: "docker"
+      include: "scope"
