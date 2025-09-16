@@ -1,8 +1,5 @@
 <template>
-  <PageSubdomain />
+  <h2>Index.vue</h2>
 </template>
 
-<script setup lang="ts">
-// This page is only rendered when a subdomain is detected
-// The actual subdomain logic is handled in the PageSubdomain component
-</script>
+<script setup lang="ts"></script>

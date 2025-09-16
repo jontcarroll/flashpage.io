@@ -26,8 +26,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a full-stack web application built with:
 - **Nuxt 4** with server-side rendering
+- **Nuxt UI v4 (Alpha)**
 - **MongoDB** with Mongoose for data persistence
-- **Tailwind CSS** for styling
 - **Caddy** for reverse proxy and automatic SSL
 
 ## File Structure
@@ -240,10 +240,10 @@ export const useApi = () => {
 - For any questions about libraries, frameworks, or APIs, fetch current docs using Context7
 - Use `resolve-library-id` first to find the correct library ID, then `get-library-docs`
 - Examples of libraries to use Context7 for:
-  - Nuxt: `/vercel/next.js` or `/nuxt/nuxt`
+  - Nuxt v4: `https://nuxt.com/docs/4.x`
+  - Nuxt UI: 'https://ui4.nuxt.com/llms.txt'
   - MongoDB/Mongoose: `/mongodb/docs`
   - Vue: `/vuejs/core`
-  - Tailwind: `/tailwindlabs/tailwindcss`
   - Any other npm packages or frameworks
 
 ## When to Use Context7
