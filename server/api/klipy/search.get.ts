@@ -15,7 +15,7 @@ export default defineEventHandler(async (event) => {
   }
 
   if (!config.klipyApiKey) {
-    console.warn('KLIPY_API_KEY is not configured')
+    console.error('KLIPY_API_KEY is not configured in runtime config')
     // Return some default GIFs for demo purposes
     return {
       result: true,
@@ -50,6 +50,7 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
+    console.log(`Searching Klipy for: ${query.q}`)
     const response = await $fetch(`https://api.klipy.co/api/v1/${config.klipyApiKey}/gifs/search`, {
       params: {
         q: query.q,
@@ -58,9 +59,11 @@ export default defineEventHandler(async (event) => {
       }
     })
 
+    console.log(`Klipy search successful, returned ${response.data?.data?.length || 0} results`)
     return response
-  } catch (error) {
-    console.error('Error searching Klipy:', error)
+  } catch (error: any) {
+    console.error('Error searching Klipy:', error.message || error)
+    console.error('API URL:', `https://api.klipy.co/api/v1/${config.klipyApiKey ? '[KEY_PRESENT]' : '[NO_KEY]'}/gifs/search`)
     return {
       result: false,
       data: {

@@ -57,17 +57,6 @@ jobs:
           strip_components: 2
           overwrite: true
 
-      - name: Debug secrets (remove after testing)
-        run: |
-          echo "Checking if secrets are set..."
-          echo "MONGO_PASSWORD length: ${#MONGO_PASSWORD}"
-          echo "KLIPY_API_KEY length: ${#KLIPY_API_KEY}"
-          echo "CLOUDFLARE_API_TOKEN length: ${#CLOUDFLARE_API_TOKEN}"
-        env:
-          MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-          KLIPY_API_KEY: ${{ secrets.KLIPY_API_KEY }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-
       - name: Set file permissions and deploy
         uses: appleboy/ssh-action@v1.0.0
         env:
@@ -98,10 +87,6 @@ jobs:
             # Create .env file for docker-compose with URL-encoded password
             # URL-encode the MongoDB password to handle special characters
             ENCODED_MONGO_PASSWORD=$(node -e "console.log(encodeURIComponent('$MONGO_PASSWORD'))")
-
-            # Debug: Check if KLIPY_API_KEY is set (remove after testing)
-            echo "Debug: KLIPY_API_KEY length is ${#KLIPY_API_KEY}"
-
             {
               echo "MONGO_PASSWORD=$ENCODED_MONGO_PASSWORD"
               echo "KLIPY_API_KEY=$KLIPY_API_KEY"
