@@ -38,11 +38,14 @@ export default defineNuxtConfig({
         typeCheck: process.env.NODE_ENV !== 'production',
         tsConfig: {
             compilerOptions: {
+                baseUrl: '.',
                 paths: {
-                    '~/types': ['./types'],
-                    '~/types/*': ['./types/*'],
-                    '~/utils/*': ['./app/utils/*'],
-                    '~/composables/*': ['./app/composables/*']
+                    '~/*': ['./*'],
+                    '~/types': ['../types'],
+                    '~/types/*': ['../types/*'],
+                    '~/utils': ['../app/utils'],
+                    '~/utils/*': ['../app/utils/*'],
+                    '~/composables/*': ['../app/composables/*']
                 }
             }
         }
