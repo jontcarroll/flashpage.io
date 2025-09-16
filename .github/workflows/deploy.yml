@@ -92,8 +92,8 @@ jobs:
             # Pull latest images
             sudo -u www docker compose pull
 
-            # Deploy with environment variables preserved using -E flag
-            sudo -E -u www docker compose up -d --force-recreate
+            # Deploy with environment variables passed explicitly
+            sudo -u www env MONGO_PASSWORD="$MONGO_PASSWORD" GIPHY_API_KEY="$GIPHY_API_KEY" CLOUDFLARE_API_TOKEN="$CLOUDFLARE_API_TOKEN" docker compose up -d --force-recreate
 
             # Wait for services to start and verify they're healthy
             echo "Waiting for services to start..."
