@@ -16,10 +16,10 @@
         <img
           v-for="gif in gifs"
           :key="gif.id"
-          :src="gif.files.webp || gif.files.gif"
+          :src="gif.file?.sm?.webp?.url || gif.file?.sm?.gif?.url"
           :alt="gif.title"
           class="w-full h-24 object-cover rounded cursor-pointer hover:ring-2 hover:ring-purple-500"
-          :class="{ 'ring-2 ring-purple-500': modelValue === gif.files.gif }"
+          :class="{ 'ring-2 ring-purple-500': modelValue === gif.file?.hd?.gif?.url }"
           @click="selectGif(gif)"
         />
       </div>
@@ -76,6 +76,6 @@ const handleSearch = async () => {
 }
 
 const selectGif = (gif: any) => {
-  emit('update:modelValue', gif.files.gif)
+  emit('update:modelValue', gif.file?.hd?.gif?.url || gif.file?.md?.gif?.url)
 }
 </script>
