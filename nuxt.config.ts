@@ -23,7 +23,7 @@ export default defineNuxtConfig({
     },
     runtimeConfig: {
         mongoUri: process.env.MONGODB_URI || 'mongodb://localhost:27017/flashpage',
-        giphyApiKey: process.env.GIPHY_API_KEY || '',
+        klipyApiKey: process.env.KLIPY_API_KEY || '',
         public: {
             siteUrl: process.env.SITE_URL || 'http://localhost:3000'
         }
@@ -38,11 +38,14 @@ export default defineNuxtConfig({
         typeCheck: process.env.NODE_ENV !== 'production',
         tsConfig: {
             compilerOptions: {
+                baseUrl: '.',
                 paths: {
-                    '~/types': ['./types'],
-                    '~/types/*': ['./types/*'],
-                    '~/utils/*': ['./app/utils/*'],
-                    '~/composables/*': ['./app/composables/*']
+                    '~/*': ['./*'],
+                    '~/types': ['../types'],
+                    '~/types/*': ['../types/*'],
+                    '~/utils': ['../app/utils'],
+                    '~/utils/*': ['../app/utils/*'],
+                    '~/composables/*': ['../app/composables/*']
                 }
             }
         }

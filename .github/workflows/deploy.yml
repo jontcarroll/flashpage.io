@@ -61,13 +61,13 @@ jobs:
         uses: appleboy/ssh-action@v1.0.0
         env:
           MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
-          GIPHY_API_KEY: ${{ secrets.GIPHY_API_KEY }}
+          KLIPY_API_KEY: ${{ secrets.KLIPY_API_KEY }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          envs: MONGO_PASSWORD,GIPHY_API_KEY,CLOUDFLARE_API_TOKEN
+          envs: MONGO_PASSWORD,KLIPY_API_KEY,CLOUDFLARE_API_TOKEN
           script: |
             # Exit immediately if any command fails
             set -e
@@ -89,7 +89,7 @@ jobs:
             ENCODED_MONGO_PASSWORD=$(node -e "console.log(encodeURIComponent('$MONGO_PASSWORD'))")
             {
               echo "MONGO_PASSWORD=$ENCODED_MONGO_PASSWORD"
-              echo "GIPHY_API_KEY=$GIPHY_API_KEY"
+              echo "KLIPY_API_KEY=$KLIPY_API_KEY"
               echo "CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN"
               echo "SITE_URL=https://flashpage.io"
             } | sudo tee .env > /dev/null

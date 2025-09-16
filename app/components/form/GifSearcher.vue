@@ -7,7 +7,7 @@
       <input
         v-model="searchQuery"
         type="text"
-        placeholder="Search Giphy..."
+        placeholder="Search KLIPY..."
         class="input-field"
         @input="handleSearch"
       />
@@ -16,10 +16,10 @@
         <img
           v-for="gif in gifs"
           :key="gif.id"
-          :src="gif.images.fixed_height.url"
+          :src="gif.file?.sm?.webp?.url || gif.file?.sm?.gif?.url"
           :alt="gif.title"
           class="w-full h-24 object-cover rounded cursor-pointer hover:ring-2 hover:ring-purple-500"
-          :class="{ 'ring-2 ring-purple-500': modelValue === gif.images.original.url }"
+          :class="{ 'ring-2 ring-purple-500': modelValue === gif.file?.hd?.gif?.url }"
           @click="selectGif(gif)"
         />
       </div>
@@ -27,6 +27,14 @@
       <div v-if="modelValue" class="text-center">
         <p class="text-sm text-gray-600 mb-2">Selected GIF:</p>
         <img :src="modelValue" alt="Selected GIF" class="mx-auto rounded-lg max-w-full h-40 object-contain" />
+      </div>
+
+      <div class="flex justify-center items-center mt-3">
+        <img
+          src="/assets/KLIPY/klipy-logo.png"
+          alt="Powered by KLIPY"
+          class="h-4 opacity-70 hover:opacity-100 transition-opacity"
+        />
       </div>
     </div>
   </div>
@@ -61,10 +69,10 @@ const handleSearch = async () => {
 
   searchTimeout = setTimeout(async () => {
     try {
-      const response = await $fetch<{ data: any[] }>('/api/giphy/search', {
+      const response = await $fetch<{ result: boolean, data: { data: any[] } }>('/api/klipy/search', {
         params: { q: searchQuery.value }
       })
-      gifs.value = response.data || []
+      gifs.value = response.data?.data || []
     } catch (err) {
       console.error('Error searching GIFs:', err)
     }
@@ -72,6 +80,6 @@ const handleSearch = async () => {
 }
 
 const selectGif = (gif: any) => {
-  emit('update:modelValue', gif.images.original.url)
+  emit('update:modelValue', gif.file?.hd?.gif?.url || gif.file?.md?.gif?.url)
 }
 </script>
