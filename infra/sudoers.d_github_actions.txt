@@ -12,3 +12,4 @@ github-actions ALL=NOPASSWD: /usr/bin/mkdir
 github-actions ALL=NOPASSWD: /usr/bin/cp
 github-actions ALL=NOPASSWD: /usr/bin/chown
 github-actions ALL=NOPASSWD: /usr/bin/chmod
+github-actions ALL=(www) NOPASSWD: /usr/bin/env

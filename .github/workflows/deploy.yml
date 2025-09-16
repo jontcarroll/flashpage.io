@@ -84,16 +84,18 @@ jobs:
             # Navigate to application directory
             cd /opt/flashpage
 
-            # Export environment variables for docker-compose
-            export MONGO_PASSWORD="$MONGO_PASSWORD"
-            export GIPHY_API_KEY="$GIPHY_API_KEY"
-            export CLOUDFLARE_API_TOKEN="$CLOUDFLARE_API_TOKEN"
+            # Create .env file for docker-compose
+            echo "MONGO_PASSWORD=$MONGO_PASSWORD" > .env
+            echo "GIPHY_API_KEY=$GIPHY_API_KEY" >> .env
+            echo "CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN" >> .env
+            sudo chown www:www .env
+            sudo chmod 600 .env
 
             # Pull latest images
             sudo -u www docker compose pull
 
-            # Deploy with environment variables passed explicitly
-            sudo -u www env MONGO_PASSWORD="$MONGO_PASSWORD" GIPHY_API_KEY="$GIPHY_API_KEY" CLOUDFLARE_API_TOKEN="$CLOUDFLARE_API_TOKEN" docker compose up -d --force-recreate
+            # Deploy with environment variables from .env file
+            sudo -u www docker compose up -d --force-recreate
 
             # Wait for services to start and verify they're healthy
             echo "Waiting for services to start..."
