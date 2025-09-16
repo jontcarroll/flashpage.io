@@ -1,1 +1,1 @@
-export * from './subdomain'
+export * from './flashpage'

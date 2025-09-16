@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
-import type { ISubdomain } from '../../types'
+import type { IFlashpage } from '../../types'
 const { Schema, model, models } = mongoose
 
-const SubdomainSchema = new Schema<ISubdomain>({
+const FlashpageSchema = new Schema<IFlashpage>({
   slug: {
     type: String,
     required: true,
@@ -46,7 +46,7 @@ const SubdomainSchema = new Schema<ISubdomain>({
   }
 })
 
-SubdomainSchema.index({ slug: 1 })
-SubdomainSchema.index({ createdAt: -1 })
+FlashpageSchema.index({ slug: 1 })
+FlashpageSchema.index({ createdAt: -1 })
 
-export const Subdomain = (models.Subdomain as mongoose.Model<ISubdomain>) || model<ISubdomain>('Subdomain', SubdomainSchema)
+export const Flashpage = (models.Flashpage as mongoose.Model<IFlashpage>) || model<IFlashpage>('Flashpage', FlashpageSchema)

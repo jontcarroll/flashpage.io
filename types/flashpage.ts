@@ -1,4 +1,4 @@
-export interface ISubdomain {
+export interface IFlashpage {
   slug: string
   title: string
   content: string
@@ -9,7 +9,7 @@ export interface ISubdomain {
   views?: number
 }
 
-export interface SubdomainFormData {
+export interface FlashpageFormData {
   slug: string
   title: string
   content: string
@@ -18,7 +18,7 @@ export interface SubdomainFormData {
   isDarkMode: boolean
 }
 
-export interface SubdomainResponse extends ISubdomain {
+export interface FlashpageResponse extends IFlashpage {
   _id?: string
   updatedAt?: Date | string
 }

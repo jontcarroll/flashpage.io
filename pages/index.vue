@@ -48,7 +48,7 @@
         <template #header>
           <div class="flex items-center justify-between">
             <h2 class="text-2xl font-semibold">Create Your Flashpage</h2>
-            <UBadge color="primary" variant="subtle">
+            <UBadge color="purple" variant="subtle">
               Step {{ currentStep + 1 }} of {{ steps.length }}
             </UBadge>
           </div>
@@ -59,6 +59,7 @@
           v-model="currentStep"
           :items="stepperItems"
           class="mb-8"
+          @update:model-value="goToStep"
         />
 
         <!-- Step Content -->
@@ -72,7 +73,12 @@
             leave-from-class="translate-x-0 opacity-100"
             leave-to-class="-translate-x-4 opacity-0"
           >
-            <FlashpageWizard />
+            <div :key="currentStep">
+              <SubdomainStepBasicInfo v-if="currentStep === 0" />
+              <SubdomainStepContent v-else-if="currentStep === 1" />
+              <SubdomainStepVisuals v-else-if="currentStep === 2" />
+              <SubdomainStepPreview v-else-if="currentStep === 3" />
+            </div>
           </Transition>
         </div>
 
@@ -81,7 +87,7 @@
           <div class="flex items-center justify-between">
             <UButton
               v-if="currentStep > 0"
-              color="neutral"
+              color="gray"
               variant="ghost"
               @click="prevStep"
             >
@@ -131,7 +137,7 @@
 </template>
 
 <script setup lang="ts">
-const { currentStep, steps, canProceed, nextStep, prevStep, goToStep } = useFlashpageWizard()
+const { currentStep, steps, canProceed, nextStep, prevStep, goToStep, formData } = useSubdomainWizard()
 
 const stepperItems = computed(() =>
   steps.map((step, index) => ({
@@ -143,7 +149,7 @@ const stepperItems = computed(() =>
 )
 
 function validatePreviousSteps(targetIndex: number): boolean {
-  const { validateStep } = useFlashpageWizard()
+  const { validateStep } = useSubdomainWizard()
   for (let i = 0; i < targetIndex; i++) {
     if (!validateStep(i)) return false
   }

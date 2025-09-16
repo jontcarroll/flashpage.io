@@ -1,10 +1,14 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-15',
   devtools: { enabled: true },
-  modules: ['@nuxt/eslint', '@nuxt/image', '@nuxt/ui', '@nuxt/content'],
+  modules: ['@nuxt/eslint', '@nuxt/image', '@nuxt/ui', '@nuxt/content', '@vueuse/nuxt'],
   css: ['~/assets/css/main.css'],
   components: {
     dirs: [
+      {
+        path: '~/app/components',
+        pathPrefix: false
+      },
       {
         path: '~/components',
         pathPrefix: false
@@ -26,5 +30,22 @@ export default defineNuxtConfig({
     public: {
       siteUrl: process.env.SITE_URL || 'http://localhost:3000'
     }
-  }
+  },
+  typescript: {
+    strict: true,
+    typeCheck: process.env.NODE_ENV !== 'production',
+    tsConfig: {
+      compilerOptions: {
+        baseUrl: '.',
+        paths: {
+          '~/*': ['./*'],
+          '~/types': ['../types'],
+          '~/types/*': ['../types/*'],
+          '~/utils': ['../app/utils'],
+          '~/utils/*': ['../app/utils/*'],
+          '~/composables/*': ['../app/composables/*']
+        }
+      }
+    }
+  },
 })

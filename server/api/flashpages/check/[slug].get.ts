@@ -1,21 +1,21 @@
 import { connectDB } from '../../../utils/mongodb'
-import { Subdomain } from '../../../models/subdomain'
+import { Flashpage } from '../../../models/flashpage'
 
 export default defineEventHandler(async (event) => {
   await connectDB()
-  
+
   const slug = getRouterParam(event, 'slug')
-  
+
   if (!slug) {
     throw createError({
       statusCode: 400,
       statusMessage: 'Slug parameter is required'
     })
   }
-  
+
   try {
-    const existing = await Subdomain.findOne({ slug: slug.toLowerCase() })
-    
+    const existing = await Flashpage.findOne({ slug: slug.toLowerCase() })
+
     return {
       available: !existing,
       slug: slug.toLowerCase()
