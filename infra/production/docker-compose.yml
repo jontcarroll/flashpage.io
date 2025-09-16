@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: caddy:2-alpine
+    image: caddybuilds/caddy-cloudflare:latest
     container_name: flashpage-caddy
     restart: unless-stopped
     ports:
