@@ -3,61 +3,43 @@
     <!-- Step 1: Basic Info -->
     <div v-if="currentStep === 0" class="space-y-8">
       <div class="space-y-6">
-        <UFormField
-          label="Subdomain"
-          :error="slugError"
-          :help="`https://${formData.slug || 'your-name'}.flashpage.io`"
-        >
-          <UInput
+        <div class="mb-6">
+          <label class="block mb-2 text-lg font-black uppercase">Subdomain</label>
+          <input
             v-model="formData.slug"
-            placeholder="your-awesome-page"
-            size="xl"
-            :loading="isCheckingAvailability"
-            class="input-glow text-center"
-            @update:model-value="onSlugChange"
-          >
-            <template #trailing>
-              <UIcon
-                v-if="availabilityStatus === 'available'"
-                name="i-lucide-check-circle"
-                class="text-green-500"
-              />
-              <UIcon
-                v-else-if="availabilityStatus === 'unavailable'"
-                name="i-lucide-x-circle"
-                class="text-red-500"
-              />
-            </template>
-          </UInput>
-        </UFormField>
-
-        <div v-if="formData.slug" class="text-center">
-          <span v-if="availabilityStatus === 'available'" class="inline-flex items-center gap-2 text-green-600">
-            <UIcon name="i-lucide-check-circle" class="h-4 w-4" />
-            Great choice! This subdomain is available.
-          </span>
-          <span v-else-if="availabilityStatus === 'unavailable'" class="inline-flex items-center gap-2 text-red-600">
-            <UIcon name="i-lucide-x-circle" class="h-4 w-4" />
-            This subdomain is already taken. Try another one!
-          </span>
+            placeholder="YOUR-AWESOME-PAGE"
+            class="brutal-input text-center uppercase"
+            @input="onSlugChange"
+          />
+          <div class="mt-2 font-mono text-sm">
+            https://{{ formData.slug || 'your-name' }}.flashpage.io
+          </div>
+          <div v-if="slugError" class="mt-2 text-red-600 font-bold">
+            {{ slugError }}
+          </div>
         </div>
 
-        <UFormField
-          label="Page Title"
-          :help="`${formData.title.length}/100 characters`"
-        >
-          <UInput
+        <div v-if="formData.slug" class="text-center">
+          <div v-if="availabilityStatus === 'available'" class="brutal-badge bg-[#00FF00] brutal-shadow-sm">
+            ✅ AVAILABLE!
+          </div>
+          <div v-else-if="availabilityStatus === 'unavailable'" class="brutal-badge bg-[#FF0066] text-white brutal-shadow-sm">
+            ❌ TAKEN - TRY ANOTHER
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block mb-2 text-lg font-black uppercase">Page Title</label>
+          <input
             v-model="formData.title"
-            placeholder="My Amazing Page"
-            size="xl"
+            placeholder="MY AMAZING PAGE"
             :maxlength="100"
-            class="input-glow text-center"
-          >
-            <template #leading>
-              <UIcon name="i-lucide-type" />
-            </template>
-          </UInput>
-        </UFormField>
+            class="brutal-input text-center uppercase"
+          />
+          <div class="mt-2 font-mono text-sm">
+            {{ formData.title.length }}/100 CHARACTERS
+          </div>
+        </div>
       </div>
 
       <UAlert
@@ -77,20 +59,19 @@
     <!-- Step 2: Content & GIF -->
     <div v-else-if="currentStep === 1" class="space-y-8">
       <div class="space-y-6">
-        <UFormField
-          label="Your Message"
-          :help="`${formData.content.length}/1000 characters`"
-        >
-          <UTextarea
+        <div class="mb-6">
+          <label class="block mb-2 text-lg font-black uppercase">Your Message</label>
+          <textarea
             v-model="formData.content"
-            placeholder="Share your story, thoughts, or message with the world..."
+            placeholder="SHARE YOUR STORY WITH THE WORLD..."
             :rows="6"
             :maxlength="1000"
-            autoresize
-            size="xl"
-            class="input-glow"
+            class="brutal-input resize-none uppercase"
           />
-        </UFormField>
+          <div class="mt-2 font-mono text-sm">
+            {{ formData.content.length }}/1000 CHARACTERS
+          </div>
+        </div>
 
         <div class="flex flex-wrap items-center justify-center gap-6 text-sm font-medium text-gray-600 dark:text-gray-400">
           <div class="flex items-center gap-2">
