@@ -9,7 +9,7 @@
             v-model="formData.slug"
             placeholder="YOUR-AWESOME-PAGE"
             class="brutal-input text-center uppercase"
-            @input="onSlugChange"
+            @input="(e) => onSlugChange((e.target as HTMLInputElement).value)"
           />
           <div class="mt-2 font-mono text-sm">
             https://{{ formData.slug || 'your-name' }}.flashpage.io
