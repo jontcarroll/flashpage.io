@@ -84,9 +84,11 @@ jobs:
             # Navigate to application directory
             cd /opt/flashpage
 
-            # Create .env file for docker-compose
+            # Create .env file for docker-compose with URL-encoded password
+            # URL-encode the MongoDB password to handle special characters
+            ENCODED_MONGO_PASSWORD=$(node -e "console.log(encodeURIComponent('$MONGO_PASSWORD'))")
             {
-              echo "MONGO_PASSWORD=$MONGO_PASSWORD"
+              echo "MONGO_PASSWORD=$ENCODED_MONGO_PASSWORD"
               echo "GIPHY_API_KEY=$GIPHY_API_KEY"
               echo "CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN"
             } | sudo tee .env > /dev/null
