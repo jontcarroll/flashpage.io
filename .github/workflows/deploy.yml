@@ -82,7 +82,7 @@ jobs:
           overwrite: true
 
       - name: Set file permissions and deploy
-        uses: appleboy/ssh-action@v1.0.0
+        uses: appleboy/ssh-action@v1.2.2
         env:
           MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
           KLIPY_API_KEY: ${{ secrets.KLIPY_API_KEY }}
