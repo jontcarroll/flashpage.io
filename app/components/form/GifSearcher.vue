@@ -29,8 +29,12 @@
         <img :src="modelValue" alt="Selected GIF" class="mx-auto rounded-lg max-w-full h-40 object-contain" />
       </div>
 
-      <div class="text-center mt-3">
-        <p class="text-xs text-gray-500">Powered by KLIPY</p>
+      <div class="flex justify-center items-center mt-3">
+        <img
+          src="/assets/KLIPY/klipy-logo.png"
+          alt="Powered by KLIPY"
+          class="h-4 opacity-70 hover:opacity-100 transition-opacity"
+        />
       </div>
     </div>
   </div>
