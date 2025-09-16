@@ -85,9 +85,11 @@ jobs:
             cd /opt/flashpage
 
             # Create .env file for docker-compose
-            echo "MONGO_PASSWORD=$MONGO_PASSWORD" > .env
-            echo "GIPHY_API_KEY=$GIPHY_API_KEY" >> .env
-            echo "CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN" >> .env
+            sudo tee .env > /dev/null <<EOF
+MONGO_PASSWORD=$MONGO_PASSWORD
+GIPHY_API_KEY=$GIPHY_API_KEY
+CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN
+EOF
             sudo chown www:www .env
             sudo chmod 600 .env
 
