@@ -4,3 +4,64 @@
 @theme {
     --font-sans: 'Public Sans', sans-serif;
 }
+
+@layer utilities {
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  /* Enhanced focus states */
+  .focus-ring {
+    @apply focus:ring-2 focus:ring-purple-500 focus:ring-offset-2;
+  }
+
+  /* Smooth hover transitions */
+  .hover-lift {
+    @apply transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg;
+  }
+
+  /* Glassmorphism effect */
+  .glass {
+    @apply backdrop-blur-lg bg-white/80 dark:bg-gray-900/80;
+  }
+}
+
+@layer components {
+  /* Custom button styles */
+  .btn-primary-gradient {
+    @apply bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold shadow-md;
+    @apply hover:from-purple-700 hover:to-blue-700 hover:shadow-lg;
+    @apply focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2;
+    @apply transition-all duration-200;
+  }
+
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-300;
+    @apply hover:shadow-2xl hover:-translate-y-1;
+  }
+
+  /* Input field enhancements */
+  .input-glow {
+    @apply transition-all duration-200;
+    @apply focus:shadow-[0_0_20px_rgba(147,51,234,0.3)];
+  }
+}

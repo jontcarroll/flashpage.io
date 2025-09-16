@@ -33,14 +33,14 @@ export const useFlashpageWizard = () => {
     {
       id: 'content',
       title: 'Content',
-      description: 'Add your message',
+      description: 'Add your message and GIF',
       icon: 'i-lucide-message-square',
       validated: false
     },
     {
       id: 'visuals',
-      title: 'Visuals',
-      description: 'Pick a GIF and theme',
+      title: 'Theme',
+      description: 'Choose colors and style',
       icon: 'i-lucide-palette',
       validated: false
     },
@@ -66,10 +66,10 @@ export const useFlashpageWizard = () => {
           data.title &&
           data.title.length <= 100
         )
-      case 1: // Content
+      case 1: // Content & GIF
         return !!(data.content && data.content.length <= 1000)
-      case 2: // Visuals
-        return !!(data.gifUrl && data.gifUrl.startsWith('http'))
+      case 2: // Visuals (Theme only now)
+        return true // Theme always has a default value
       case 3: // Preview
         return true
       default:
