@@ -1,3 +1,22 @@
+interface KlipyResponse {
+  result: boolean
+  data: {
+    data: Array<{
+      url: string
+      title: string
+      slug: string
+      files: {
+        gif: string
+        webp: string
+        mp4: string
+      }
+    }>
+    current_page: number
+    per_page: number
+    has_next: boolean
+  }
+}
+
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
   const query = getQuery(event)
@@ -51,7 +70,7 @@ export default defineEventHandler(async (event) => {
 
   try {
     console.log(`Searching Klipy for: ${query.q}`)
-    const response = await $fetch(`https://api.klipy.co/api/v1/${config.klipyApiKey}/gifs/search`, {
+    const response = await $fetch<KlipyResponse>(`https://api.klipy.co/api/v1/${config.klipyApiKey}/gifs/search`, {
       params: {
         q: query.q,
         per_page: 12,

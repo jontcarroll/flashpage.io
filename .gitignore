@@ -27,3 +27,5 @@ logs
 **.local.md
 
 .playwright-mcp/**
+
+app/assets/icons-reference/**

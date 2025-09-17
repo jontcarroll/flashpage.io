@@ -3,7 +3,7 @@ services:
     image: mongo:7
     container_name: flashpage-mongodb
     restart: unless-stopped
-    ports: 
+    ports:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
@@ -14,21 +14,21 @@ services:
     networks:
       - flashpage-network
 
-  app:
-    build: .
-    container_name: flashpage-app
-    restart: unless-stopped
-    environment:
-      MONGODB_URI: ${MONGODB_URI}
-      KLIPY_API_KEY: ${KLIPY_API_KEY}
-      SITE_URL: ${SITE_URL:-http://localhost:3000}
-      NODE_ENV: production
-    ports:
-      - "3000:3000"
-    depends_on:
-      - mongodb
-    networks:
-      - flashpage-network
+#  app:
+#    build: .
+#    container_name: flashpage-app
+#    restart: unless-stopped
+#    environment:
+#      MONGODB_URI: ${MONGODB_URI}
+#      KLIPY_API_KEY: ${KLIPY_API_KEY}
+#      SITE_URL: ${SITE_URL:-http://localhost:3000}
+#      NODE_ENV: production
+#    ports:
+#      - "3000:3000"
+#    depends_on:
+#      - mongodb
+#    networks:
+#      - flashpage-network
 
 volumes:
   mongodb_data:
