@@ -19,18 +19,18 @@
           </div>
         </div>
 
-        <div v-if="formData.slug" class="text-center">
+        <div v-if="formData.slug" class="text-center flex justify-center">
           <div
             v-if="availabilityStatus === 'available'"
-            class="brutal-badge bg-[#00FF00] brutal-shadow-sm"
+            class="flex items-center gap-2 w-fit brutal-badge bg-success brutal-shadow-sm"
           >
-            ✅ AVAILABLE!
+            <FpIcon name="check-square" class="size-4" /> AVAILABLE!
           </div>
           <div
             v-else-if="availabilityStatus === 'unavailable'"
-            class="brutal-badge bg-[#FF0066] text-white brutal-shadow-sm"
+            class="flex items-center gap-2 w-fit brutal-badge bg-error brutal-shadow-sm"
           >
-            ❌ TAKEN - TRY ANOTHER
+            <FpIcon name="warning" class="size-4" /> TAKEN, TRY ANOTHER!
           </div>
         </div>
 
@@ -41,6 +41,7 @@
             placeholder="MY AMAZING PAGE"
             :maxlength="100"
             class="brutal-input text-center uppercase"
+            @input="onTitleChange"
           />
           <div class="mt-2 font-mono text-sm">{{ formData.title.length }}/100 CHARACTERS</div>
         </div>
@@ -180,7 +181,7 @@
       <div
         class="flex flex-col items-center gap-6 rounded-lg bg-gradient-to-r from-purple-50 to-blue-50 p-8 text-center"
       >
-        <span class="text-6xl">🚀</span>
+        <FpIcon name="rocket" class="size-12" />
         <div>
           <h3 class="text-xl font-semibold">Ready to Launch!</h3>
           <p class="mt-2 text-gray-600">Click the button below to create your flashpage</p>
@@ -208,6 +209,7 @@
   const availabilityStatus = ref<'idle' | 'checking' | 'available' | 'unavailable'>('idle')
   const slugError = ref<string>()
   const previewGif = ref(false)
+  const titleHasBeenManuallyEdited = ref(false)
 
   const themes = [
     { value: 'aurora', label: '🌈 Aurora', hint: 'Colorful northern lights' },
@@ -256,7 +258,29 @@
       formData.value.slug = cleaned
     }
 
+    // Auto-generate title if it hasn't been manually edited
+    if (!titleHasBeenManuallyEdited.value) {
+      if (cleaned) {
+        // Convert slug to PascalCase title
+        const autoTitle = cleaned
+          .split('-')
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ')
+          .toUpperCase() // Keep uppercase for brutalist style
+
+        formData.value.title = autoTitle
+      } else {
+        // Clear title when subdomain is cleared
+        formData.value.title = ''
+      }
+    }
+
     slugDebounce(cleaned)
+  }
+
+  const onTitleChange = () => {
+    // Mark title as manually edited when user types in it
+    titleHasBeenManuallyEdited.value = true
   }
 
   const isValidUrl = (url: string) => {

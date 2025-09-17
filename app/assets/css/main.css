@@ -2,19 +2,34 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-@theme {
-    --font-sans: 'Space Grotesk', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
 
-    /* Brutalist Color Palette */
-    --color-brutal-black: #000000;
-    --color-brutal-white: #FFFFFF;
-    --color-brutal-blue: #0066FF;
-    --color-brutal-pink: #FF0066;
-    --color-brutal-yellow: #FFFF00;
-    --color-brutal-green: #00FF00;
-    --color-brutal-gray-dark: #333333;
-    --color-brutal-gray-light: #CCCCCC;
+@font-face {
+  font-family: 'Molend';
+  src: url('/fonts/Molend.otf') format('opentype'),
+  url('/fonts/Molend.ttf') format('truetype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-molend: 'Molend', sans-serif;
+
+  /* Custom font families - uncomment and modify when you add your fonts */
+  /* --font-custom: 'YourCustomFont', sans-serif; */
+  /* --font-display: 'YourDisplayFont', serif; */
+  /* --font-heading: 'YourHeadingFont', sans-serif; */
+  /* Brutalist Color Palette */
+  --color-brutal-black: #000000;
+  --color-brutal-white: #FFFFFF;
+  --color-brutal-blue: #0066FF;
+  --color-brutal-pink: #FF0066;
+  --color-brutal-yellow: #FFFF00;
+  --color-brutal-green: #00FF00;
+  --color-brutal-gray-dark: #333333;
+  --color-brutal-gray-light: #CCCCCC;
 }
 
 @layer base {
@@ -91,7 +106,7 @@
     transform: translate(4px, 4px);
     box-shadow: 4px 4px 0px var(--color-brutal-black) !important;
   }
-  
+
   /* Rotation for asymmetry */
   .brutal-rotate-1 {
     transform: rotate(-1deg);
@@ -118,14 +133,20 @@
     cursor: pointer;
   }
 
-  .brutal-btn:hover {
+  .brutal-btn:not(:disabled):hover {
     transform: translate(-4px, -4px);
     box-shadow: 12px 12px 0px var(--color-brutal-black);
   }
 
-  .brutal-btn:active {
+  .brutal-btn:not(:disabled):active {
     transform: translate(4px, 4px);
     box-shadow: 4px 4px 0px var(--color-brutal-black);
+  }
+
+  .brutal-btn:disabled {
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: 8px 8px 0px var(--color-brutal-black) !important;
   }
 
   .brutal-btn-pink {

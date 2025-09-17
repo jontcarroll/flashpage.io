@@ -125,7 +125,7 @@
           <p class="mt-1 text-sm text-gray-600">This GIF will be displayed on your flashpage</p>
         </div>
         <UButton color="neutral" variant="ghost" size="sm" @click="clearSelection">
-          <UIcon name="i-lucide-x" />
+          <FpIcon name="close" />
         </UButton>
       </div>
     </div>
