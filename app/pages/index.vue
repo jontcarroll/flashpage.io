@@ -1,52 +1,50 @@
 <template>
   <div class="min-h-screen bg-white relative">
     <!-- Geometric Pattern Background -->
-    <GeometricPattern pattern="grid" subtle />
+    <GeometricPattern pattern="dots" subtle />
 
     <!-- Hero Section -->
     <div class="relative overflow-hidden border-b-8 border-black bg-[#FFFF00]">
-      <!-- Decorative Elements -->
-      <div class="absolute top-4 left-4 w-32 h-32 bg-[#FF0066] brutal-rotate-2"></div>
-      <div class="absolute bottom-4 right-4 w-48 h-48 bg-[#0066FF] brutal-rotate-n2"></div>
+      <FpIcon
+        name="flash-1"
+        class="absolute top-10 left-10 size-[11rem] text-[#FF0066] brutal-rotate-2"
+      />
+      <FpIcon
+        name="flash-2"
+        class="absolute bottom-10 right-10 size-[18rem] text-[#FF0066] brutal-rotate-2"
+      />
 
       <UContainer class="relative py-24 px-4">
         <div class="mx-auto max-w-4xl">
           <!-- Badge -->
-          <div class="mb-12 inline-block">
-            <div class="brutal-badge brutal-shadow-sm brutal-rotate-1">
-              ⚡ CREATE IN SECONDS
+          <div class="mb-12">
+            <div
+              class="brutal-badge brutal-shadow-sm brutal-rotate-1 flex w-fit items-center gap-2"
+            >
+              <FpIcon name="flash-1" class="size-3" /> CREATE IN SECONDS
             </div>
           </div>
 
           <!-- Main Title -->
-          <h1 class="mb-4 brutal-text text-black">
-            BUILD YOUR
-          </h1>
-          <h1 class="mb-12 brutal-text text-black bg-white inline-block px-4 brutal-border brutal-shadow-lg brutal-rotate-n2">
+
+          <h1 class="mb-4 brutal-text text-black">BUILD YOUR</h1>
+          <h1
+            class="mb-12 brutal-text text-black bg-white inline-block px-4 brutal-border brutal-shadow-lg brutal-rotate-n2"
+          >
             FLASHPAGE
           </h1>
 
           <!-- Subtitle -->
           <div class="mb-16 bg-white brutal-border brutal-shadow p-6 max-w-2xl brutal-rotate-1">
-            <p class="text-xl font-black uppercase">
-              Share your story. Showcase work. Have fun.
-            </p>
-            <p class="text-lg font-mono mt-2">
-              YOUR_UNIQUE_SPACE_ON_THE_WEB
-            </p>
+            <p class="text-xl font-black uppercase">Share your story. Showcase work. Have fun.</p>
+            <p class="text-lg font-mono mt-2">YOUR_UNIQUE_SPACE_ON_THE_WEB</p>
           </div>
 
           <!-- Feature Pills -->
           <div class="flex flex-wrap gap-4 justify-center">
-            <div class="brutal-badge bg-[#00FF00] brutal-shadow-sm">
-              ⚡ LIGHTNING FAST
-            </div>
-            <div class="brutal-badge bg-[#FF0066] text-white brutal-shadow-sm">
-              🎨 BOLD THEMES
-            </div>
-            <div class="brutal-badge bg-[#0066FF] text-white brutal-shadow-sm">
-              🔒 100% SECURE
-            </div>
+            <div class="brutal-badge bg-[#00FF00] brutal-shadow-sm">⚡ LIGHTNING FAST</div>
+            <div class="brutal-badge bg-[#FF0066] text-white brutal-shadow-sm">🎨 BOLD THEMES</div>
+            <div class="brutal-badge bg-[#0066FF] text-white brutal-shadow-sm">🔒 100% SECURE</div>
           </div>
         </div>
       </UContainer>
@@ -58,9 +56,7 @@
         <template #header>
           <div class="flex items-center justify-between">
             <h2 class="text-3xl font-black uppercase">CREATE YOUR FLASHPAGE</h2>
-            <div class="brutal-badge">
-              STEP {{ currentStep + 1 }}/{{ steps.length }}
-            </div>
+            <div class="brutal-badge">STEP {{ currentStep + 1 }}/{{ steps.length }}</div>
           </div>
         </template>
 
@@ -99,12 +95,7 @@
         <!-- Navigation -->
         <template #footer>
           <div class="flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <BrutalistButton
-              v-if="currentStep > 0"
-              variant="white"
-              size="lg"
-              @click="prevStep"
-            >
+            <BrutalistButton v-if="currentStep > 0" variant="white" size="lg" @click="prevStep">
               ← BACK
             </BrutalistButton>
             <div v-else class="hidden sm:block"></div>
@@ -129,12 +120,18 @@
           <h3 class="text-xl font-black uppercase mb-2">1000+ CREATORS</h3>
           <p class="font-mono text-sm">SHARING_THEIR_STORIES</p>
         </div>
-        <div class="brutal-card bg-[#FF0066] text-white brutal-rotate-n2 text-center brutal-transition brutal-hover">
-          <div class="text-6xl mb-4">⏱️</div>
+        <div
+          class="flex flex-col items-center brutal-card bg-[#FF0066] text-white brutal-rotate-n2 text-center brutal-transition brutal-hover"
+        >
+          <div class="mb-4 size-16">
+            <FpIcon name="clock-forward" />
+          </div>
           <h3 class="text-xl font-black uppercase mb-2">60 SECONDS</h3>
           <p class="font-mono text-sm">FROM_START_TO_PUBLISH</p>
         </div>
-        <div class="brutal-card bg-[#0066FF] text-white brutal-rotate-2 text-center brutal-transition brutal-hover">
+        <div
+          class="brutal-card bg-[#0066FF] text-white brutal-rotate-2 text-center brutal-transition brutal-hover"
+        >
           <div class="text-6xl mb-4">📈</div>
           <h3 class="text-xl font-black uppercase mb-2">100% UPTIME</h3>
           <p class="font-mono text-sm">RELIABLE_HOSTING</p>
@@ -145,33 +142,17 @@
 </template>
 
 <script setup lang="ts">
-const { currentStep, steps, canProceed, nextStep, prevStep, goToStep } = useFlashpageWizard()
+  const { currentStep, steps, canProceed, nextStep, prevStep, goToStep } = useFlashpageWizard()
 
-const stepperItems = computed(() =>
-  steps.map((step, index) => ({
-    title: step.title,
-    description: step.description,
-    icon: step.icon,
-    disabled: index > 0 && !validatePreviousSteps(index)
-  }))
-)
-
-function validatePreviousSteps(targetIndex: number): boolean {
-  const { validateStep } = useFlashpageWizard()
-  for (let i = 0; i < targetIndex; i++) {
-    if (!validateStep(i)) return false
-  }
-  return true
-}
-
-// Set page meta
-useHead({
-  title: 'Flashpage - Create Your Unique Web Page',
-  meta: [
-    {
-      name: 'description',
-      content: 'Build your personalized flashpage in seconds. Share your story with beautiful themes and custom subdomains.'
-    }
-  ]
-})
+  // Set page meta
+  useHead({
+    title: 'Flashpage - Create Your Unique Web Page',
+    meta: [
+      {
+        name: 'description',
+        content:
+          'Build your personalized flashpage in seconds. Share your story with beautiful themes and custom subdomains.'
+      }
+    ]
+  })
 </script>

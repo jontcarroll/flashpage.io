@@ -1,8 +1,11 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-15',
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   modules: ['@nuxt/eslint', '@nuxt/image', '@nuxt/ui', '@nuxt/content', '@vueuse/nuxt'],
   css: ['~/assets/css/main.css'],
+  ui: {
+    colorMode: false
+  },
   components: {
     dirs: [
       {
@@ -25,7 +28,10 @@ export default defineNuxtConfig({
     }
   },
   runtimeConfig: {
-    mongoUri: process.env.NUXT_MONGO_URI || process.env.MONGODB_URI || 'mongodb://localhost:27017/flashpage',
+    mongoUri:
+      process.env.NUXT_MONGO_URI ||
+      process.env.MONGODB_URI ||
+      'mongodb://localhost:27017/flashpage',
     klipyApiKey: process.env.NUXT_KLIPY_API_KEY || process.env.KLIPY_API_KEY || '',
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000'
@@ -47,5 +53,5 @@ export default defineNuxtConfig({
         }
       }
     }
-  },
+  }
 })
