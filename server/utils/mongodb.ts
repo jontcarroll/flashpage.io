@@ -7,13 +7,9 @@ export async function connectDB() {
     return
   }
 
-  // Use localhost for development, mongodb hostname for Docker
-  const isDocker = process.env.NODE_ENV === 'production'
-  const defaultUri = isDocker
-    ? 'mongodb://admin:localpassword@mongodb:27017/flashpage?authSource=admin'
-    : 'mongodb://admin:localpassword@localhost:27017/flashpage?authSource=admin'
-
-  const mongoUri = process.env.MONGODB_URI || defaultUri
+  // Get the MongoDB URI from Nuxt runtime config
+  const config = useRuntimeConfig()
+  const mongoUri = config.mongoUri
   
   try {
     console.log('Attempting to connect to MongoDB at:', mongoUri)

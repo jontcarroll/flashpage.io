@@ -6,6 +6,13 @@ export default defineNuxtConfig({
   ui: {
     colorMode: false
   },
+  features: {
+    inlineStyles: true // Inline all styles to prevent FOUC
+  },
+  experimental: {
+    renderJsonPayloads: true, // Default in Nuxt 4
+    lazyHydration: true // Default in Nuxt 4
+  },
   components: {
     dirs: [
       {
@@ -31,7 +38,7 @@ export default defineNuxtConfig({
     mongoUri:
       process.env.NUXT_MONGO_URI ||
       process.env.MONGODB_URI ||
-      'mongodb://localhost:27017/flashpage',
+      `mongodb://admin:${process.env.MONGO_PASSWORD || 'localpassword'}@localhost:27017/flashpage?authSource=admin`,
     klipyApiKey: process.env.NUXT_KLIPY_API_KEY || process.env.KLIPY_API_KEY || '',
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000'
