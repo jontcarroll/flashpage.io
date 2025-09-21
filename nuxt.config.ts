@@ -6,18 +6,12 @@ export default defineNuxtConfig({
   ui: {
     colorMode: false
   },
-  components: {
-    dirs: [
-      {
-        path: '~/app/components',
-        pathPrefix: false
-      },
-      {
-        path: '~/components',
-        pathPrefix: false
-      }
-    ]
-  },
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false
+    }
+  ],
   app: {
     head: {
       link: [

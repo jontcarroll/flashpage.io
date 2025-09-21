@@ -4,24 +4,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ---
 
-# 📋 TABLE OF CONTENTS
-
-- [🏗️ PROJECT OVERVIEW](#️-project-overview)
-- [💻 CODE STANDARDS](#-code-standards)
-- [🗄️ DATABASE GUIDELINES](#️-database-guidelines)
-- [🌐 API DEVELOPMENT](#-api-development)
-- [🧩 COMPONENT GUIDELINES](#-component-guidelines)
-- [⚡ PERFORMANCE & BEST PRACTICES](#-performance--best-practices)
-- [🔒 SECURITY CONSIDERATIONS](#-security-considerations)
-- [📚 DOCUMENTATION MANAGEMENT](#-documentation-management)
-- [🔍 TROUBLESHOOTING PHILOSOPHY](#-troubleshooting-philosophy)
-- [🚀 DEVELOPMENT WORKFLOW](#-development-workflow)
-- [🤝 ENCOURAGING COLLABORATIVE PROBLEM-SOLVING](#-encouraging-collaborative-problem-solving)
-- [🤖 NOTES FOR CLAUDE](#-notes-for-claude)
-- [⚙️ COMMANDS & UTILITIES](#️-commands--utilities)
-
----
-
 # 🏗️ PROJECT OVERVIEW
 
 This is a full-stack web application built with:
@@ -32,20 +14,27 @@ This is a full-stack web application built with:
 
 ## File Structure
 ```
-├── components/
-│   ├── ui/           # Reusable UI components
-│   ├── forms/        # Form components
-│   ├── pages/        # Page components
-│   └── layout/       # Layout-specific components
-├── composables/      # Reusable composition functions
+├── app/
+│   ├── components/       # Atomic Design Pattern
+│   │   ├── elements/     # Atoms: Basic building blocks (buttons, inputs, badges)
+│   │   ├── blocks/       # Molecules: Component combinations
+│   │   ├── sections/     # Organisms: Complex sections
+│   │   ├── templates/    # Templates: Page-level layouts
+│   │   ├── ui/           # Nuxt UI overrides and extensions
+│   │   └── layout/       # Layout-specific components (navigation, footer)
+│   ├── composables/      # Reusable composition functions
+│   ├── middleware/       # Route middleware
+│   ├── pages/            # Application pages/routes
+│   ├── plugins/          # Nuxt plugins
+│   ├── types/            # TypeScript type definitions
+│   └── utils/            # Client-side utilities
 ├── server/
-│   ├── api/         # API endpoints
-│   ├── models/      # Mongoose models
-│   ├── middleware/  # Server side middleware
-│   └── utils/       # Server utilities
-├── types/           # TypeScript type definitions
-├── utils/           # Client-side utilities
-└── middleware/      # Route middleware
+│   ├── api/              # API endpoints
+│   ├── models/           # Mongoose models
+│   ├── middleware/       # Server-side middleware
+│   └── utils/            # Server utilities
+├── public/               # Static assets
+└── assets/               # Build-time processed assets
 ```
 
 ---
@@ -97,7 +86,7 @@ export default defineNuxtConfig({
 
 ## Example Schema Pattern
 ```typescript
-// types/user.ts
+// app/types/user.ts
 export interface IUser {
   _id: string
   email: string
@@ -108,7 +97,7 @@ export interface IUser {
 
 // server/models/User.ts
 import { Schema, model } from 'mongoose'
-import type { IUser } from '~/types/user'
+import type { IUser } from '~/app/types/user'
 
 const userSchema = new Schema<IUser>({
   email: { type: String, required: true, unique: true },
@@ -167,11 +156,54 @@ export const User = model<IUser>('User', userSchema)
 
 # 🧩 COMPONENT GUIDELINES
 
+## Atomic Design Pattern Structure
+
+### Elements (Atoms)
+- **Location**: `app/components/elements/`
+- **Purpose**: Basic, indivisible UI building blocks
+- **Examples**: Buttons, inputs, labels, badges, icons
+- **Rules**:
+  - No business logic, purely presentational
+  - Accept props for all variations
+  - Should be highly reusable across the application
+  - Minimal or no internal state
+
+### Blocks (Molecules)
+- **Location**: `app/components/blocks/`
+- **Purpose**: Simple combinations of elements working together
+- **Examples**: form groups, search bars
+- **Rules**:
+  - Combine 2-3 elements to form a functional unit
+  - Can have simple internal state
+  - Should still be reusable but more specific than elements
+  - May include basic interaction logic
+
+### Sections (Organisms)
+- **Location**: `app/components/sections/`
+- **Purpose**: Complex, self-contained sections of a page
+- **Examples**: SectionHero, SectionFlashpageWizard, SectionFunFacts
+- **Rules**:
+  - Combine multiple blocks and elements
+  - Can contain business logic and API calls
+  - May be page-specific or shared across pages
+  - Handle their own state management
+
+### Templates
+- **Location**: `app/components/templates/`
+- **Purpose**: Page-level layout components
+- **Examples**: LandingPage
+- **Rules**:
+  - Define the overall page structure
+  - Compose sections, blocks, and elements
+  - Handle page-level state and routing logic
+  - Should be used by pages in the `pages/` directory
+
 ## Component Structure
 - Keep components focused and single-purpose
 - Use props with proper TypeScript typing
 - Emit events with proper payload types
 - Document complex components with JSDoc comments
+- Follow atomic design hierarchy (elements → blocks → sections → templates)
 
 ## Composables
 - Create reusable logic in composables
@@ -183,7 +215,7 @@ export const User = model<IUser>('User', userSchema)
 
 ### Data Fetching
 ```typescript
-// composables/useApi.ts
+// app/composables/useApi.ts
 export const useApi = () => {
   const config = useRuntimeConfig()
 
@@ -380,18 +412,18 @@ Communicate that I value Claude's technical judgment and want collaborative part
 ## Development Commands
 ```bash
 # Development server
-npm run dev
+pnpm run dev
 
 # Build and preview
-npm run build
-npm run preview
+pnpm run build
+pnpm run preview
 
 # Type checking
-npm run typecheck
+pnpm run typecheck
 
 # Linting
-npm run lint
-npm run lint:fix
+pnpm run lint
+pnpm run lint:fix
 ```
 
 ## Docker Commands
