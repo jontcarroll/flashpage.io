@@ -2,24 +2,26 @@
 # Build stage with BuildKit cache mounts
 FROM node:20-alpine AS builder
 
-# Install dependencies needed for some npm packages
-RUN apk add --no-cache python3 make g++
+# Install pnpm and dependencies needed for some packages
+RUN apk add --no-cache python3 make g++ && \
+    corepack enable && \
+    corepack prepare pnpm@latest --activate
 
 WORKDIR /app
 
 # Copy package files first for better caching
-COPY package*.json ./
+COPY package.json pnpm-lock.yaml ./
 
-# Use BuildKit cache mount for npm cache
-# This significantly speeds up npm ci by caching downloaded packages
-RUN --mount=type=cache,target=/root/.npm \
-    npm ci --prefer-offline --no-audit --progress=false
+# Use BuildKit cache mount for pnpm cache
+# This significantly speeds up pnpm install by caching downloaded packages
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store \
+    pnpm install --frozen-lockfile --prefer-offline
 
 # Copy source files
 COPY . .
 
 # Build the application
-RUN npm run build
+RUN pnpm run build
 
 # Production stage - smaller final image
 FROM node:20-alpine AS production
