@@ -133,7 +133,7 @@
 </template>
 
 <script setup lang="ts">
-  import FpIcon from '~/components/ui/FpIcon.vue'
+  import FpIcon from '~/components/elements/FpIcon.vue'
 
   interface KlipyGif {
     id: number

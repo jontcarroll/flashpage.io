@@ -17,10 +17,7 @@
   --font-mono: 'JetBrains Mono', monospace;
   --font-molend: 'Molend', sans-serif;
 
-  /* Custom font families - uncomment and modify when you add your fonts */
-  /* --font-custom: 'YourCustomFont', sans-serif; */
-  /* --font-display: 'YourDisplayFont', serif; */
-  /* --font-heading: 'YourHeadingFont', sans-serif; */
+
   /* Brutalist Color Palette */
   --color-brutal-black: #000000;
   --color-brutal-white: #FFFFFF;

@@ -1,17 +1,10 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-15',
   devtools: { enabled: false },
-  modules: ['@nuxt/eslint', '@nuxt/image', '@nuxt/ui', '@nuxt/content', '@vueuse/nuxt'],
+  modules: ['@nuxt/ui', '@vueuse/nuxt'],
   css: ['~/assets/css/main.css'],
   ui: {
     colorMode: false
-  },
-  features: {
-    inlineStyles: true // Inline all styles to prevent FOUC
-  },
-  experimental: {
-    renderJsonPayloads: true, // Default in Nuxt 4
-    lazyHydration: true // Default in Nuxt 4
   },
   components: {
     dirs: [
@@ -46,7 +39,7 @@ export default defineNuxtConfig({
   },
   typescript: {
     strict: true,
-    typeCheck: process.env.NODE_ENV !== 'production',
+    typeCheck: false, // Disable typeCheck to fix HMR issues
     tsConfig: {
       compilerOptions: {
         baseUrl: '.',

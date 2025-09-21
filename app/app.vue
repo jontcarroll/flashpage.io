@@ -1,10 +1,10 @@
 <template>
   <UApp>
-    <LoadingScreen
-      animation-path="/animations/loading.json"
-      :minimum-duration="1000"
-      @animation-complete="onLoadingComplete"
-    />
+    <!--    <LoadingScreen-->
+    <!--      animation-path="/animations/loading.json"-->
+    <!--      :minimum-duration="1000"-->
+    <!--      @animation-complete="onLoadingComplete"-->
+    <!--    />-->
     <NuxtRouteAnnouncer />
     <NuxtPage />
   </UApp>

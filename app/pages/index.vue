@@ -1,48 +1,8 @@
 <template>
   <div class="min-h-screen bg-white relative">
-    <!-- Geometric Pattern Background -->
     <GeometricPattern pattern="dots" subtle />
 
-    <!-- Hero Section -->
-    <div class="relative overflow-hidden border-b-8 border-black bg-[#FFFF00]">
-      <FpIcon name="flash-1" class="absolute top-10 left-10 size-[11rem] brutal-rotate-2" />
-      <FpIcon name="flash-2" class="absolute bottom-10 right-10 size-[18rem] brutal-rotate-2" />
-
-      <UContainer class="relative py-24 px-4">
-        <div class="mx-auto max-w-4xl">
-          <!-- Badge -->
-          <div class="mb-12">
-            <div
-              class="brutal-badge brutal-shadow-sm brutal-rotate-1 flex w-fit items-center gap-2"
-            >
-              <FpIcon name="flash-1" class="size-3" /> CREATE IN SECONDS
-            </div>
-          </div>
-
-          <!-- Main Title -->
-
-          <h1 class="mb-4 brutal-text text-black">BUILD YOUR</h1>
-          <h1
-            class="mb-12 brutal-text text-black bg-white inline-block px-4 brutal-border brutal-shadow-lg brutal-rotate-n2"
-          >
-            FLASHPAGE
-          </h1>
-
-          <!-- Subtitle -->
-          <div class="mb-16 bg-white brutal-border brutal-shadow p-6 max-w-2xl brutal-rotate-1">
-            <p class="text-xl font-black uppercase">Share your story. Showcase work. Have fun.</p>
-            <p class="text-lg font-mono mt-2">YOUR_UNIQUE_SPACE_ON_THE_WEB</p>
-          </div>
-
-          <!-- Feature Pills -->
-          <div class="flex flex-wrap gap-4 justify-center">
-            <div class="brutal-badge bg-[#00FF00] brutal-shadow-sm">⚡ LIGHTNING FAST</div>
-            <div class="brutal-badge bg-[#FF0066] text-white brutal-shadow-sm">🎨 BOLD THEMES</div>
-            <div class="brutal-badge bg-[#0066FF] text-white brutal-shadow-sm">🔒 100% SECURE</div>
-          </div>
-        </div>
-      </UContainer>
-    </div>
+    <SectionHero />
 
     <!-- Wizard Section -->
     <UContainer class="py-20">
@@ -107,41 +67,14 @@
         </template>
       </BrutalistCard>
 
-      <!-- Fun Facts -->
-      <div class="mt-16 grid gap-8 md:grid-cols-3">
-        <div
-          class="flex flex-col items-center brutal-card brutal-rotate-1 text-center brutal-transition brutal-hover"
-        >
-          <div class="mb-4 size-16">
-            <FpIcon name="user-group" />
-          </div>
-          <h3 class="text-xl font-black uppercase mb-2">1000+ CREATORS</h3>
-          <p class="font-mono text-sm">SHARING_THEIR_STORIES</p>
-        </div>
-        <div
-          class="flex flex-col items-center brutal-card bg-[#FF0066] text-white brutal-rotate-n2 text-center brutal-transition brutal-hover"
-        >
-          <div class="mb-4 size-16">
-            <FpIcon name="clock-forward" />
-          </div>
-          <h3 class="text-xl font-black uppercase mb-2">60 SECONDS</h3>
-          <p class="font-mono text-sm">FROM_START_TO_PUBLISH</p>
-        </div>
-        <div
-          class="flex flex-col items-center brutal-card bg-[#0066FF] text-white brutal-rotate-2 text-center brutal-transition brutal-hover"
-        >
-          <div class="mb-4 size-16">
-            <FpIcon name="graph-up" />
-          </div>
-          <h3 class="text-xl font-black uppercase mb-2">100% UPTIME</h3>
-          <p class="font-mono text-sm">RELIABLE_HOSTING</p>
-        </div>
-      </div>
+      <SectionFunFacts />
     </UContainer>
   </div>
 </template>
 
 <script setup lang="ts">
+  import SectionFunFacts from '~/components/sections/SectionFunFacts.vue'
+
   const { currentStep, steps, canProceed, nextStep, prevStep, goToStep } = useFlashpageWizard()
 
   // Set page meta
